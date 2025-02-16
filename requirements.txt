@@ -1,0 +1,6 @@
+openai
+beautifulsoup4
+numpy
+spacy
+python-dotenv
+pdfminer.six
