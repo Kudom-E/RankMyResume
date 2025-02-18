@@ -30,6 +30,7 @@ jobs:
       id: changed_files
       run: |
         echo "Changed files:"
+        git fetch --unshallow  # Fetch all history
         git diff --name-only ${{ github.event.before }} ${{ github.sha }} > changed_files.txt
         cat changed_files.txt
 
