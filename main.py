@@ -1,4 +1,5 @@
 import os
+from pdfminer.high_level import extract_text
 
 
 # get all pdf and html files in designated directory
@@ -20,6 +21,15 @@ def get_files():
 
     print(files)
     return files
+
+
+def get_resume_texts(resumes):
+    if not resumes:
+        print("No resumes found")
+
+    resume_text = [extract_text(resume) for resume in resumes]
+
+    return resume_text
 
 
 if __name__ == "__main__":

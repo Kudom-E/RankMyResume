@@ -1,13 +1,5 @@
-from unittest.mock import patch
-import pytest
 import os
-import tempfile
 from main import get_files
-
-
-# @pytest.fixture
-# def mock_os_scandir():
-#     with  patch('os.scandir') as mock_scandir:
 
 
 def test_directory_input(monkeypatch, mocker):
@@ -22,7 +14,6 @@ def test_directory_input(monkeypatch, mocker):
         mocker.Mock(spec=os.DirEntry, name="desktop.ini")  # Should be ignored
     ]
 
-    # Setting attributes and methods for each mock file
     mock_files[0].name = "resume1.pdf"
     mock_files[0].is_file.return_value = True
 
@@ -30,7 +21,7 @@ def test_directory_input(monkeypatch, mocker):
     mock_files[1].is_file.return_value = True
 
     mock_files[2].name = "desktop.ini"
-    mock_files[2].is_file.return_value = True  # Even if it's a file, assume it's filtered out
+    mock_files[2].is_file.return_value = True
 
     mocker.patch("os.scandir", return_value=mock_files)
 
