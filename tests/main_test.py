@@ -1,4 +1,7 @@
+import builtins
 import os
+from unittest.mock import mock_open
+
 from main import get_files, get_resume_texts, get_job_text
 
 
@@ -65,3 +68,12 @@ def test_get_job_text_on_no_job(capfd):
     assert "No job description found"
 
 
+def test_get_job_text_on_mock_job(mocker):
+    # Mocking 'open' to return specific file content
+    mock_job_file = mocker.patch(
+        "builtins.open", new_callable=mock_open, read_data="<html><main>Job Description</main></html>"
+    )
+
+    result = get_job_text("fake_job.html")
+
+    assert result == "Job Description"

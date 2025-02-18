@@ -43,8 +43,13 @@ def get_job_text(job_html):
     with open(job_html, "r", encoding="utf-8") as job_descript:
         html_content = job_descript.read()
 
-    soup = bs4.BeautifulSoup(html_content, "html_parser")
-    text = soup.find("main").get_text()
+    soup = bs4.BeautifulSoup(html_content, "html.parser")
+    text = soup.find("main")
+
+    if text:
+        text = text.get_text()
+    else:
+        text = soup.get_text()
 
     # Replace multiple spaces with one space
     cleaned_text = re.sub(r'\s{2,}', ' ', text)
