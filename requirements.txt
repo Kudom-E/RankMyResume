@@ -4,3 +4,5 @@ numpy==2.2.3
 spacy==3.8.4
 python-dotenv==1.0.1
 pdfminer.six==20240706
+pytest~=8.3.4
+requests~=2.32.3

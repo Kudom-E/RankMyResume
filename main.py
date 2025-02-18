@@ -2,9 +2,14 @@ import os
 
 
 # get all pdf and html files in designated directory
-def get_files(directory):
+def get_files():
+    # request for directory
+    designated_directory = input(
+        r"Enter the single directory:(eg: all files in C:\Users\UserName\Documents\Resumes, "
+        "enter Documents/Resumes):\n~/")
+
     # change directory to provided directory
-    os.chdir(os.path.expanduser(directory))
+    os.chdir(os.path.expanduser("~/"+designated_directory))
 
     # find files in directory
     files = [
@@ -14,12 +19,8 @@ def get_files(directory):
     ]
 
     print(files)
+    return files
 
 
 if __name__ == "__main__":
-    # request for directory
-    designated_directory = input(
-        r"Enter the single directory:(eg: all files in C:\Users\UserName\Documents\Resumes, "
-        "enter Documents/Resumes):\n~/")
-
-    get_files("~/"+designated_directory)
+    get_files()
