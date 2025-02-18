@@ -1,8 +1,9 @@
 import os
 from main import get_files
+from main import get_resume_texts
 
 
-def test_directory_input(monkeypatch, mocker):
+def test_get_files(monkeypatch, mocker):
     mock_input = "Documents/Resumes"
     monkeypatch.setattr("builtins.input", lambda _: mock_input)
     monkeypatch.setattr("os.chdir", lambda _: None)
@@ -31,3 +32,13 @@ def test_directory_input(monkeypatch, mocker):
 
     assert isinstance(result, list)
     assert result == expected_files
+
+
+def test_get_resume_texts_on_empty_list(capfd):
+    resumes = []
+    result = get_resume_texts(resumes)
+
+    captured = capfd.readouterr()
+
+    assert result == []
+    assert "No resumes found" in captured.out
