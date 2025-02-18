@@ -57,8 +57,7 @@ def test_get_resume_texts_on_mock_resumes(mocker):
 
 
 def test_get_job_text_on_no_job(capfd):
-    job = None
-    result = get_job_text(job)
+    result = get_job_text("")
 
     captured = capfd.readouterr()
 
