@@ -1,5 +1,5 @@
 import os
-from main import get_files, get_resume_texts
+from main import get_files, get_resume_texts, get_job_text
 
 
 def test_get_files(monkeypatch, mocker):
@@ -44,13 +44,25 @@ def test_get_resume_texts_on_empty_list(capfd):
 
 
 def test_get_resume_texts_on_mock_resumes(mocker):
-    resumes = ["resume1.pdf", "resume2.pdf"]
+    resume_pdfs = ["resume1.pdf", "resume2.pdf"]
 
     mock_resume_text = mocker.patch("main.extract_text", side_effect=lambda x: f"Extracted text from {x}")
 
-    result = get_resume_texts(resumes)
+    result = get_resume_texts(resume_pdfs)
 
     expected_result = ["Extracted text from resume1.pdf", "Extracted text from resume2.pdf"]
 
     assert result == expected_result
     mock_resume_text.assert_called()
+
+
+def test_get_job_text_on_no_job(capfd):
+    job = None
+    result = get_job_text(job)
+
+    captured = capfd.readouterr()
+
+    assert result is None
+    assert "No job description found"
+
+

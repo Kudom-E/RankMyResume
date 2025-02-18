@@ -23,14 +23,20 @@ def get_files():
     return files
 
 
-def get_resume_texts(resumes):
-    if not resumes:
+def get_resume_texts(resume_pdfs):
+    if not resume_pdfs:
         print("No resumes found")
         return []
 
-    resume_text = [extract_text(resume) for resume in resumes]
+    resume_text = [extract_text(resume) for resume in resume_pdfs]
 
     return resume_text
+
+
+def get_job_text(job_html):
+    if not job_html:
+        print("No job description found")
+        return
 
 
 if __name__ == "__main__":
