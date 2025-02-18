@@ -26,6 +26,7 @@ def get_files():
 def get_resume_texts(resumes):
     if not resumes:
         print("No resumes found")
+        return []
 
     resume_text = [extract_text(resume) for resume in resumes]
 
