@@ -5,7 +5,8 @@ import os
 def get_files():
     # request for directory
     designated_directory = input(
-        r"Enter the single directory:(eg: all files in C:\Users\UserName\Documents\Resumes, "
+        r"Enter the single directory:("
+        r"eg: all files in C:\Users\UserName\Documents\Resumes, "
         "enter Documents/Resumes):\n~/")
 
     # change directory to provided directory
@@ -14,7 +15,8 @@ def get_files():
     # find files in directory
     files = [
         entry.name for entry in os.scandir()
-        if entry.name.lower() != "desktop.ini" and entry.name.lower().endswith(".pdf")
+        if entry.name.lower() != "desktop.ini"
+        and entry.name.lower().endswith(".pdf")
         or entry.name.lower().endswith(".html")
     ]
 
