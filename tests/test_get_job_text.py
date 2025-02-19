@@ -21,3 +21,15 @@ def test_get_job_text_on_mock_job(mocker):
     result = get_job_text("fake_job.html")
 
     assert result == "Job Description"
+
+
+def test_get_job_text_for_multi_lines(mocker):
+    # Mocking 'open' to return specific file content
+    mocker.patch(
+        "builtins.open", new_callable=mock_open,
+        read_data="<html><main>\n\n Job  \n Description \n\n</main></html>"
+    )
+
+    result = get_job_text("fake_job.html")
+
+    assert result == "Job Description"
