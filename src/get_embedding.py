@@ -4,15 +4,18 @@ from dotenv import load_dotenv
 import numpy as np
 
 load_dotenv()
-api_key = os.getenv("OPENAI_API_KEY")
 
-client = openai.OpenAI(api_key="Some_key")
+
+def get_openai_client():
+    return openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 
 def get_embedding(texts):
+    client = get_openai_client()
+
     if not texts:
         print("No text to  be embedded")
-        return None
+        raise ValueError("No text to  be embedded.")
     try:
         response = client.embeddings.create(
             input=[str(text) for text in texts],
@@ -20,12 +23,9 @@ def get_embedding(texts):
         )
 
     except openai.AuthenticationError as e:
-        print(f"OpenAI API returned an API Error: {e}")
-        print(type(e))
         raise e
 
     except Exception as e:
-        print(f"Unexpected error: {e}")
-        return None  # Handle any other unexpected errors
+        raise e  # Handle any other unexpected errors
 
     return [np.array(embeddings.embedding) for embeddings in response.data]
