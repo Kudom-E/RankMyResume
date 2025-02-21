@@ -31,10 +31,8 @@ def test_get_embedding_invalid_api_key(mocker):
 
 @pytest.fixture
 def mock_openai_embeddings_create(mocker):
-    # Create a mock OpenAI client instance
     mock_client = mocker.Mock()
 
-    # Mock the embeddings.create method on the client instance
     mock_client.embeddings.create.return_value = mocker.Mock(
         data=[
             mocker.Mock(embedding=[0.1, 0.2, 0.3]),
@@ -42,7 +40,6 @@ def mock_openai_embeddings_create(mocker):
         ]
     )
 
-    # Patch openai.OpenAI to return the mock client instance
     mocker.patch("openai.OpenAI", return_value=mock_client)
 
     return mock_client
@@ -51,11 +48,31 @@ def mock_openai_embeddings_create(mocker):
 def test_get_embedding_valid_input(mock_openai_embeddings_create):
     mock_texts = ["text1", "text2"]
 
-    # Call the function with valid input
     embeddings = get_embedding(mock_texts)
 
-    # Check if the mocked response data is processed correctly
     assert len(embeddings) == 2
     assert isinstance(embeddings[0], np.ndarray)
     assert embeddings[0].tolist() == [0.1, 0.2, 0.3]
     assert embeddings[1].tolist() == [0.4, 0.5, 0.6]
+
+
+@pytest.fixture
+def mock_openai_generic_exception(mocker):
+    # Create a mock OpenAI client
+    mock_client = mocker.Mock()
+
+    # Mock the embeddings.create method to raise a generic exception
+    mock_client.embeddings.create.side_effect = RuntimeError("Unexpected error occurred")
+
+    # Patch openai.OpenAI to return the mock client when instantiated
+    mocker.patch("openai.OpenAI", return_value=mock_client)
+
+    return mock_client
+
+
+def test_get_embedding_generic_exception(mock_openai_generic_exception):
+    mock_texts = ["text1", "text2"]
+
+    # Expect the function to raise the generic exception
+    with pytest.raises(RuntimeError, match="Unexpected error occurred"):
+        get_embedding(mock_texts)
