@@ -10,6 +10,10 @@ client = openai.OpenAI(api_key=api_key)
 
 
 def get_embedding(texts):
+    if not texts:
+        print("No text to  be embedded")
+        return
+
     response = client.embeddings.create(
         input=[str(text) for text in texts],
         model="text-embedding-ada-002"
