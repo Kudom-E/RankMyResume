@@ -20,8 +20,13 @@ def get_files(max_retries=None):
             attempts += 1
             continue
 
-        if os.path.exists(os.path.expanduser("~/"+designated_directory.strip())):
-            print(f"✅ Directory set to: {os.path.abspath(os.path.expanduser('~/'+designated_directory.strip()))}")
+        if os.path.exists(os.path.expanduser(
+                "~/"+designated_directory.strip())):
+
+            path = os.path.expanduser('~/'+designated_directory.strip())
+            print(f"✅ Directory set to: "
+                  f"{os.path.abspath(path)}"
+                  )
             break
         else:
             print("❌ Invalid directory. Please check the path and try again.")
@@ -46,5 +51,3 @@ def get_files(max_retries=None):
         return None, None
     else:
         return resume_pdfs, job_html
-
-
