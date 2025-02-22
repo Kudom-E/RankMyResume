@@ -28,4 +28,10 @@ def get_embedding(texts):
     except Exception as e:
         raise e  # Handle any other unexpected errors
 
-    return [np.array(embeddings.embedding) for embeddings in response.data]
+    embeddings = [np.array(embeddings.embedding) for embeddings in response.data]
+
+    # per position the job embeddings should be at the end of the array
+    resumes_embeddings = embeddings[:-1]
+    job_embedding = embeddings[-1]
+
+    return resumes_embeddings, job_embedding
