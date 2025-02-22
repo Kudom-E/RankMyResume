@@ -62,7 +62,8 @@ def mock_openai_generic_exception(mocker):
     mock_client = mocker.Mock()
 
     # Mock the embeddings.create method to raise a generic exception
-    mock_client.embeddings.create.side_effect = RuntimeError("Unexpected error occurred")
+    mock_client.embeddings.create.side_effect = \
+        RuntimeError("Unexpected error occurred")
 
     # Patch openai.OpenAI to return the mock client when instantiated
     mocker.patch("openai.OpenAI", return_value=mock_client)

@@ -17,7 +17,3 @@ if __name__ == "__main__":
 
     # send them to openai to be embedded and separate embeddings
     resume_embeddings, job_embedding = get_embedding(combined_texts)
-
-
-
-
