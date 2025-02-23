@@ -2,7 +2,7 @@ import os
 
 
 # get all pdf and html files in designated directory
-def get_files(max_retries=None):
+def get_files(max_retries=3):
     attempts = 0
     while True:
         if max_retries is not None and attempts >= max_retries:

@@ -48,12 +48,12 @@ def mock_openai_embeddings_create(mocker):
 def test_get_embedding_valid_input(mock_openai_embeddings_create):
     mock_texts = ["text1", "text2"]
 
-    embeddings = get_embedding(mock_texts)
+    resumes_embeddings, job_embedding = get_embedding(mock_texts)
 
-    assert len(embeddings) == 2
-    assert isinstance(embeddings[0], np.ndarray)
-    assert embeddings[0].tolist() == [0.1, 0.2, 0.3]
-    assert embeddings[1].tolist() == [0.4, 0.5, 0.6]
+    assert isinstance(resumes_embeddings[0], np.ndarray)
+    assert isinstance(job_embedding, np.ndarray)
+    assert resumes_embeddings[0].tolist() == [0.1, 0.2, 0.3]
+    assert job_embedding.tolist() == [0.4, 0.5, 0.6]
 
 
 @pytest.fixture
