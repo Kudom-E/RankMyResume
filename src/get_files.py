@@ -6,8 +6,7 @@ def get_files(max_retries=3):
     attempts = 0
     while True:
         if max_retries is not None and attempts >= max_retries:
-            print("❌ Max retries reached. Exiting.")
-            return
+            raise IndexError("❌ Max retries reached. Exiting.")
 
         # request for directory
         designated_directory = input(
@@ -43,11 +42,15 @@ def get_files(max_retries=3):
         or entry.name.lower().endswith(".html")
     ]
 
+    if not files:
+        raise ValueError("❌ No PDF or HTML files found in the directory.")
+
     resume_pdfs = [file for file in files if file.endswith(".pdf")]
     job_html = [file for file in files if file.endswith(".html")]
 
     if len(job_html) > 1:
-        print("You have more than one job file, you will have to remove one")
-        return None, None
+        raise ValueError(
+            "You have more than one job file, you will have to remove one"
+        )
     else:
         return resume_pdfs, job_html
