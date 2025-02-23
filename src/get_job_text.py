@@ -2,7 +2,6 @@ import re
 import bs4
 
 
-# let's see if it will run the test
 def get_job_text(job_html):
     if not job_html:
         raise ValueError("No job description found.")
