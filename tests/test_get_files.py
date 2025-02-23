@@ -77,6 +77,7 @@ def test_on_no_valid_files(mocker):
     mock_input = "Documents/Resumes"
     mocker.patch("builtins.input", lambda _: mock_input)
     mocker.patch("os.chdir", lambda _: None)
+    mocker.patch("os.path.exists", side_effect=[True])
 
     # Creating mock DirEntry objects with no valid files
     mock_files = [
@@ -89,17 +90,17 @@ def test_on_no_valid_files(mocker):
     mocker.patch("os.scandir", return_value=mock_files)
 
     with pytest.raises(ValueError):
-        get_files()
+        get_files(max_retries=1)
 
 
 def test_on_mock_files(monkeypatch, mocker, mock_files):
     mock_input = "Documents/Resumes"
     mocker.patch("builtins.input", lambda _: mock_input)
     mocker.patch("os.chdir", lambda _: None)
-
+    mocker.patch("os.path.exists", side_effect=[True])
     mocker.patch("os.scandir", return_value=mock_files)
 
-    resume_pdf, job_html = get_files()
+    resume_pdf, job_html = get_files(max_retries=1)
 
     expected_files = (["resume1.pdf", "resume2.pdf"], ["job_description.html"])
 
