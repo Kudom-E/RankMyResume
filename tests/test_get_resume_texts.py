@@ -1,14 +1,11 @@
+import pytest
+
 from src.get_resume_texts import get_resume_texts
 
 
-def test_get_resume_texts_on_empty_list(capfd):
-    resumes = []
-    result = get_resume_texts(resumes)
-
-    captured = capfd.readouterr()
-
-    assert result == []
-    assert "No resumes found" in captured.out
+def test_get_resume_texts_on_empty_list():
+    with pytest.raises(ValueError):
+        get_resume_texts([])
 
 
 def test_get_resume_texts_on_mock_resumes(mocker):
