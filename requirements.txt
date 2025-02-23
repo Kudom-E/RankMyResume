@@ -5,3 +5,4 @@ openai~=1.63.0
 requests~=2.32.3
 python-dotenv~=1.0.1
 numpy>=1.24.0,<1.27.0
+httpx~=0.28.1
