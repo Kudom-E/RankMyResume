@@ -4,7 +4,6 @@ import bs4
 
 def get_job_text(job_html):
     if not job_html:
-        print("No job description found.")
         raise ValueError("No job description found.")
 
     with open(job_html, "r", encoding="utf-8") as job_descript:
@@ -23,7 +22,6 @@ def get_job_text(job_html):
 
     # Replace multiple newlines with one
     cleaned_text = re.sub(r'\n+', '\n', cleaned_text)
-
     cleaned_text = cleaned_text.strip()
 
     return cleaned_text

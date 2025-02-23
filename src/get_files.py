@@ -1,7 +1,7 @@
 import os
 
 
-# get all pdf and html files in designated directory
+# get all files in designated directory
 def get_files(max_retries=3):
     attempts = 0
     while True:
