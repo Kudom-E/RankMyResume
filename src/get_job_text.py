@@ -22,7 +22,6 @@ def get_job_text(job_html):
 
     # Replace multiple newlines with one
     cleaned_text = re.sub(r'\n+', '\n', cleaned_text)
-
     cleaned_text = cleaned_text.strip()
 
     return cleaned_text
