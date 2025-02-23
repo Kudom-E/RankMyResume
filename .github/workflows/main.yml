@@ -48,9 +48,10 @@ jobs:
     - name: Run tests based on changed test files
       run: |
         for file in $(cat changed_files.txt); do
-          if [[ "$file" == test_*.py ]]; then
-            echo "Running tests in $file"
-            pytest $file || true
+          if [[ "$file" == src/*.py or "$file" == tests/*.py ]]; then
+            test_file="tests/test_$(basename $file)"
+            echo "Running tests for $file in $test_file"
+            pytest $test_file || true
           else
             echo "$file is not a test file"
           fi
