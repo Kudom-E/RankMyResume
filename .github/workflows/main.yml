@@ -52,7 +52,7 @@ jobs:
             test_file="tests/test_$(basename $file)"
             echo "Running tests for $file in $test_file"
             pytest $test_file || true
-          else if [[ "$file" == tests/*.py ]]; then
+          elif [[ "$file" == tests/*.py ]]; then
             echo "Running tests in $file"
             pytest $file || true
           else
