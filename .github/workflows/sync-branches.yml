@@ -3,7 +3,7 @@ name: Sync branches after PR merge
 on:
   push:
     branches:
-      - main  # Trigger when changes are pushed to `main` branch (i.e., when a PR is merged)
+      - main
 
 jobs:
   sync-branches:
@@ -26,10 +26,10 @@ jobs:
 
       - name: Merge `main` into other branches
         run: |
-          branches=$(git branch -r | grep -v 'main' | grep -v 'HEAD' | sed 's/origin\///')
+          branches=$(git branch -r | grep -v 'origin/main' | grep -v 'HEAD' | sed 's/origin\///')
           for branch in $branches; do
             echo "Merging latest `main` into $branch"
             git checkout $branch
             git merge origin/main --no-edit || true  
-            git push origin $branch
+            git push https://x-access-token:${{ secrets.MY_GITHUB_TOKEN }}@github.com/${{ github.repository }} $branch
           done
