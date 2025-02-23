@@ -13,7 +13,7 @@ jobs:
       - name: Checkout the `main` branch
         uses: actions/checkout@v2
         with:
-          ref: main
+          fetch-depth: 0
 
       - name: Set up Git config
         run: |
@@ -30,6 +30,6 @@ jobs:
           for branch in $branches; do
             echo "Merging latest `main` into $branch"
             git checkout $branch
-            git merge origin/main --no-edit || true  # Use `--no-edit` to avoid manual conflict resolution
+            git merge origin/main --no-edit || true  
             git push origin $branch
           done
