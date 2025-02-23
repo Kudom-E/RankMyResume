@@ -82,8 +82,10 @@ def test_on_no_valid_files(mocker):
 
     # Creating mock DirEntry objects with no valid files
     mock_files = [
-        mocker.Mock(spec=os.DirEntry, name="desktop.ini"),  # Should be ignored
-        mocker.Mock(spec=os.DirEntry, name="other_file.txt"),  # Not PDF or HTML
+        mocker.Mock(spec=os.DirEntry,
+                    name="desktop.ini"),
+        mocker.Mock(spec=os.DirEntry,
+                    name="other_file.txt"),
     ]
 
     mocker.patch("os.scandir", return_value=mock_files)
@@ -92,30 +94,10 @@ def test_on_no_valid_files(mocker):
         get_files()
 
 
-def test_on_mock_files(monkeypatch, mocker):
+def test_on_mock_files(monkeypatch, mocker, mock_files):
     mock_input = "Documents/Resumes"
     mocker.patch("builtins.input", lambda _: mock_input)
     mocker.patch("os.chdir", lambda _: None)
-
-    # Creating mock DirEntry objects
-    mock_files = [
-        mocker.Mock(spec=os.DirEntry, name="resume1.pdf"),
-        mocker.Mock(spec=os.DirEntry, name="resume2.pdf"),
-        mocker.Mock(spec=os.DirEntry, name="job_description.html"),
-        mocker.Mock(spec=os.DirEntry, name="desktop.ini")  # Should be ignored
-    ]
-
-    mock_files[0].name = "resume1.pdf"
-    mock_files[0].is_file.return_value = True
-
-    mock_files[1].name = "resume2.pdf"
-    mock_files[1].is_file.return_value = True
-
-    mock_files[2].name = "job_description.html"
-    mock_files[2].is_file.return_value = True
-
-    mock_files[3].name = "desktop.ini"
-    mock_files[3].is_file.return_value = True
 
     mocker.patch("os.scandir", return_value=mock_files)
 
@@ -126,5 +108,3 @@ def test_on_mock_files(monkeypatch, mocker):
     assert isinstance(resume_pdf, list)
     assert isinstance(job_html, list)
     assert resume_pdf, job_html == expected_files
-
-

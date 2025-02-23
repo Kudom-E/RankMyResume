@@ -49,6 +49,8 @@ def get_files(max_retries=None):
     job_html = [file for file in files if file.endswith(".html")]
 
     if len(job_html) > 1:
-        raise ValueError("You have more than one job file, you will have to remove one")
+        raise ValueError(
+            "You have more than one job file, you will have to remove one"
+        )
     else:
         return resume_pdfs, job_html
