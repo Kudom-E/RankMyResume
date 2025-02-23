@@ -22,8 +22,8 @@ def get_files(max_retries=None):
 
         if os.path.exists(os.path.expanduser(
                 "~/"+designated_directory.strip())):
-            path = os.path.expanduser('~/' + designated_directory.strip())
 
+            path = os.path.expanduser('~/'+designated_directory.strip())
             print(f"✅ Directory set to: "
                   f"{os.path.abspath(path)}"
                   )
@@ -47,8 +47,7 @@ def get_files(max_retries=None):
     job_html = [file for file in files if file.endswith(".html")]
 
     if len(job_html) > 1:
-        print("You have more than one job file, "
-              "you will have to remove one")
+        print("You have more than one job file, you will have to remove one")
         return None, None
     else:
         return resume_pdfs, job_html

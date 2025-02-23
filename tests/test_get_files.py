@@ -13,15 +13,22 @@ def test_get_files_no_input(monkeypatch, capfd):
 
 
 def test_get_files_validate_input(monkeypatch, mocker, capfd):
-    mock_input = mocker.patch("builtins.input", side_effect=["invalid/path", "valid/path"])
+    mock_input = mocker.patch(
+        "builtins.input", side_effect=["invalid/path", "valid/path"]
+    )
     mock_exists = mocker.patch("os.path.exists", side_effect=[False, True])
     monkeypatch.setattr("os.chdir", lambda _: None)
 
     get_files()
     captured = capfd.readouterr()
 
-    assert "❌ Invalid directory. Please check the path and try again." in captured.out
-    assert f"✅ Directory set to: {os.path.abspath(os.path.expanduser('~/valid/path'))}" in captured.out
+    assert "❌ Invalid directory. " \
+           "Please check the path and try again." \
+           in captured.out
+
+    assert f"✅ Directory set to: " \
+           f"{os.path.abspath(os.path.expanduser('~/valid/path'))}" \
+           in captured.out
 
     assert mock_input.call_count == 2
     assert mock_exists.call_count == 2
