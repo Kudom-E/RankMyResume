@@ -1,7 +1,5 @@
 import os
-
 import pytest
-
 from src.get_files import get_files
 
 
