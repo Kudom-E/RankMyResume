@@ -8,6 +8,8 @@ on:
 jobs:
   sync-branches:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout the `main` branch
@@ -28,8 +30,8 @@ jobs:
         run: |
           branches=$(git branch -r | grep -v 'origin/main' | grep -v 'HEAD' | sed 's/origin\///')
           for branch in $branches; do
-            echo "Merging latest `main` into $branch"
+            echo "Merging latest main into $branch"
             git checkout $branch
             git merge origin/main --no-edit || true  
-            git push https://x-access-token:${{ secrets.MY_GITHUB_TOKEN }}@github.com/${{ github.repository }} $branch
+            git push https://x-access-token:${{secrets.MY_GITHUB_TOKEN}}@github.com/${{github.repository}} $branch
           done
