@@ -1,7 +1,6 @@
 import os
 
 
-# let's see if it will run the test
 # get all pdf and html files in designated directory
 def get_files(max_retries=3):
     attempts = 0
