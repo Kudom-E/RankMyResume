@@ -27,12 +27,22 @@ jobs:
         pip install -r requirements.txt
         pip install flake8 
 
-    - name: Determine changed test files
+    - name: Determine changed files to test
       id: changed_files
       run: |
         echo "Changed files:"
-        git fetch --unshallow  # Fetch all history
-        git diff --name-only ${{ github.event.before }} ${{ github.sha }} > changed_files.txt
+        git fetch --unshallow || git fetch --all
+    
+        # Check if github.event.before is a valid commit
+        if [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ]; then
+          echo "First commit on this branch, comparing with main"
+          BASE_COMMIT=origin/main
+        else
+          BASE_COMMIT=${{ github.event.before }}
+        fi
+    
+        # Get changed files
+        git diff --name-only $BASE_COMMIT ${{ github.sha }} > changed_files.txt
         cat changed_files.txt
 
     - name: Run tests based on changed test files
