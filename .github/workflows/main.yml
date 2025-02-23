@@ -50,7 +50,9 @@ jobs:
         for file in $(cat changed_files.txt); do
           if [[ "$file" == test_*.py ]]; then
             echo "Running tests in $file"
-            pytest $file
+          else
+            echo "$file is not a test file"
+                pytest $file
           fi
         done
 
