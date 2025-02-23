@@ -14,5 +14,4 @@ def compare_resumes_to_job(
         for i in range(len(resume_list_names))
     }
 
-    print(scores)
     return scores
