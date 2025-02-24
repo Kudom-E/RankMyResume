@@ -4,12 +4,13 @@ This project is a platform built using python.
 
 **Document contents**
 
+- [Overview](#-overview)
+- [Features](#-features)
 - [Installation](#-installation-and-setup)
-  1. [1. Clone the Repository](#1-clone-the-repository)
-  2. [2. Install Dependencies](#2-install-dependencies)
-  3. [3. Run the Development Server](#3-run-the-development-server)
-  4. [4. Build for Production](#4-build-for-production)
-- [Deployment to AWS EC2](#deployment-to-aws-ec2)
+  1. [Clone the Repository](#1-clone-the-repository)
+  2. [Enter Directory](#2-enter-directory)
+  3. [Install Dependencies](#3-install-dependencies)
+  4. [Run the Script](#4-run-the-script)
 
 
 ## 📌 Overview
@@ -51,17 +52,10 @@ pip install -r requirements.txt
 
 ```
 
-### **3. Run the Script**
+### **4. Run the Script**
 
 ```bash
 python main.py
 ```
 
-### Example User Input:
-Enter path: documents/resumes  
-
-```bash
-npm run build
-npm run start
-```
 
