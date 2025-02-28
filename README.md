@@ -10,7 +10,8 @@ This project is a platform built using python.
   1. [Clone the Repository](#1-clone-the-repository)
   2. [Enter Directory](#2-enter-directory)
   3. [Install Dependencies](#3-install-dependencies)
-  4. [Run the Script](#4-run-the-script)
+  4. [Set Up Environment Variables](#4-set-up-environment-variables)
+  5. [Run the Script](#5-run-the-script)
 
 
 ## 📌 Overview
@@ -52,7 +53,20 @@ pip install -r requirements.txt
 
 ```
 
-### **4. Run the Script**
+### **4. Set Up Environment Variables**
+The script requires an OpenAI API key, which must be stored in a `.env` file.  
+
+1. Copy the env.example file to create your own env file:  
+```bash
+cp .env-example .env
+```
+
+2. Open your .env in your editor and replace your_actual_api_key with your actual OpenAI API key
+```bash
+OPENAI_API_KEY=your_actual_api_key
+```
+
+### **5. Run the Script**
 
 ```bash
 python main.py
